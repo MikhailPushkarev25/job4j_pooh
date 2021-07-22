@@ -9,15 +9,15 @@ public class QueueService implements Service {
 
     @Override
     public Resp process(Req req) {
-        String mas = req.massage();
-        String txt = "";
+        String massage = req.massage();
+        String text = "";
         if (req.method().equals(Resp.POST)) {
-            queue.putIfAbsent(mas, new ConcurrentLinkedQueue<>());
-            txt = req.text();
-            queue.get(mas).add(txt);
+            queue.putIfAbsent(massage, new ConcurrentLinkedQueue<>());
+            text = req.text();
+            queue.get(massage).add(text);
         } else {
-            txt = queue.getOrDefault(mas, new ConcurrentLinkedQueue<>()).poll();
+            text = queue.getOrDefault(massage, new ConcurrentLinkedQueue<>()).poll();
         }
-        return new Resp(txt, Resp.STATUS);
+        return new Resp(text, Resp.STATUS);
     }
 }

@@ -16,20 +16,20 @@ public class Req {
     }
 
     public static Req of(String context) {
-        String method = null;
-        String text = null;
-        String mode = null;
-        String name = null;
+        String method = "";
+        String mode = "";
+        String text = "";
+        String name = "";
         text = context;
-        String[] parse = context.split(" ");
-        method = parse[0];
-        String[] str = parse[1].split("/");
-        if (str.length > 2) {
-            mode = str[1];
-            name = str[2];
+        String[] first = context.split(" ");
+        method = first[0];
+        String[] parse = first[1].split("/");
+        if (parse.length > 2) {
+            mode = parse[1];
+            name = parse[2];
         }
-        if (str.length > 3) {
-            arg = str[3];
+        if (parse.length > 3) {
+            arg = parse[3];
         }
         return new Req(method, mode, text, name);
     }
